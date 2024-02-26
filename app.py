@@ -34,5 +34,17 @@ def submit_post():
         finally:
             cur.close()
 
+@app.route('/get_posts')
+def get_posts():
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT title, body FROM posts")
+        posts = cur.fetchall()
+        return jsonify({"posts": [{"title": post[0], "body": post[1]} for post in posts]})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+    finally:
+        cur.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
