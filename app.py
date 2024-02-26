@@ -7,9 +7,9 @@ app = Flask(__name__)
 conn = psycopg2.connect(
     host="192.168.4.59",
     port="5432",
-    database="personal_journal",
+    database="journal",
     user="jmoore",
-    password="Indiana1",
+    password="indiana1",
     connect_timeout=10
 )
 
