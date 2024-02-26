@@ -2,6 +2,9 @@
 document.getElementById('submitPost').addEventListener('click', function() {
     var title = document.getElementById('postTitle').value;
     var body = document.getElementById('postBody').value;
+    
+    console.log(title)
+    console.log(body)
 
     var data = {
         "title": title,

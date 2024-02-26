@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import psycopg2
+import dotenv
 
 app = Flask(__name__)
 
@@ -19,20 +20,19 @@ def index():
 
 @app.route('/submit_post', methods=['POST'])
 def submit_post():
-    if request.method == 'POST':
-        data = request.get_json()
-        title = data['title']
-        body = data['body']
+    data = request.get_json()
+    title = data.get('title')
+    body = data.get('body')
 
-        try:
-            cur = conn.cursor()
-            cur.execute("INSERT INTO posts (title, body) VALUES (%s, %s)", (title, body))
-            conn.commit()
-            return jsonify({"status": "success", "message": "Post submitted successfully"})
-        except Exception as e:
-            return jsonify({"status": "error", "message": str(e)})
-        finally:
-            cur.close()
+    try:
+        cur = conn.cursor()
+        cur.execute("INSERT INTO posts (title, body) VALUES (%s, %s)", (title, body))
+        conn.commit()
+        return jsonify({"status": "success", "message": "Post submitted successfully"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+    finally:
+        cur.close()
 
 @app.route('/get_posts')
 def get_posts():
@@ -40,7 +40,9 @@ def get_posts():
         cur = conn.cursor()
         cur.execute("SELECT title, body FROM posts")
         posts = cur.fetchall()
-        return jsonify({"posts": [{"title": post[0], "body": post[1]} for post in posts]})
+
+        post_list = [{"title": post[0], "body": post[1]} for post in posts]
+        return jsonify({"posts": post_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
     finally:
