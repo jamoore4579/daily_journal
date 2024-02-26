@@ -9,7 +9,7 @@ conn = psycopg2.connect(
     port="5432",
     database="journal",
     user="jmoore",
-    password="indiana1",
+    password="jmoore",
     connect_timeout=10
 )
 
