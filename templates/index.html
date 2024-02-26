@@ -1,51 +1,69 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Journal Entry</title>
-    <script src="https://kit.fontawesome.com/8280005e5c.js" crossorigin="anonymous"></script>
-    <link href="/static/css/style.css">
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Journal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
-    <header class="p-3 text-bg-dark">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <span class="text-white"><i class="fa-solid fa-book"></i></span>
-            </a>
-    
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="#" class="nav-link px-2 text-white">Create New Post</a></li>
-            </ul>
-    
-            <div class="text-end">
-                <span class="text-white">Daily Journal</span>
-            </div>
-          </div>
-        </div>
-    </header>
 
-    <section id="consistency">
-        <h3>CONSISTENCY</h3>
-        <p class="inline">"Motivation gets you going, but discipline keeps you growing.</p>
-        <p class="inline">Thats the law of consistency. It doesn't matter how talented you are. It doesn't</p>
-        <p class="inline">matter how many opportunities you receive if you want to grow, consistency is key"</p>
-        <p class="verse">"Jesus Christ is the same yesterday and today and forever" - Hebrews 13:8</p>
-    </section>
-
-    <section id="focus">
-        <h3>FOCUS</h3>
-        <p class="inline">We always tend to focus on the outcome of an event, when focusing on the process</p>
-        <p class="inline">of what you have to do to get the outcome is the most important part.</p>
-    </section>
-
-    <div class="new-post-box">
-        <input type="text" id="post-title" placeholder="Enter Post Title">
-        <textarea id="post-content" placeholder="Enter Post Content"></textarea>
-        <button id="submit-post">Submit</button>
+<!-- Header -->
+<header class="bg-primary py-3">
+    <div class="container">
+        <h1 class="text-white">Personal Journal</h1>
     </div>
-</body>
+</header>
 
+<!-- Main Content -->
+<div class="container my-4">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPostModal">
+        New Post
+    </button>
+
+    <!-- New Post Modal -->
+    <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newPostModalLabel">New Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for new post -->
+                    <form id="newPostForm">
+                        <div class="mb-3">
+                            <label for="postTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="postTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="postBody" class="form-label">Body</label>
+                            <textarea class="form-control" id="postBody" rows="5" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitPost">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark py-3">
+    <div class="container">
+        <p class="text-white">© 2024 Personal Journal. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<!-- Custom Script -->
+<script src="/static/js/script.js"></script>
+</body>
 </html>
