@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import psycopg2
-import dotenv
 
 app = Flask(__name__)
 
@@ -34,19 +33,36 @@ def submit_post():
     finally:
         cur.close()
 
-@app.route('/get_posts')
-def get_posts():
+@app.route('/edit_post/<int:post_id>', methods=['POST'])
+def edit_post(post_id):
+    data = request.get_json()
+    title = data.get('title')
+    body = data.get('body')
+
     try:
         cur = conn.cursor()
-        cur.execute("SELECT title, body FROM posts")
-        posts = cur.fetchall()
-
-        post_list = [{"title": post[0], "body": post[1]} for post in posts]
-        return jsonify({"posts": post_list})
+        cur.execute("UPDATE posts SET title = %s, body = %s WHERE id = %s", (title, body, post_id))
+        conn.commit()
+        return jsonify({"status": "success", "message": "Post updated successfully"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
     finally:
         cur.close()
+
+@app.route('/get_posts')
+def get_posts():
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT id, title, body FROM posts")
+        posts = cur.fetchall()
+
+        post_list = [{"id": post[0], "title": post[1], "body": post[2]} for post in posts]
+        return jsonify({"status": "success", "posts": post_list})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+    finally:
+        cur.close()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
